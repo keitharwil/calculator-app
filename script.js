@@ -1,3 +1,13 @@
+const calculatorOperation = document.querySelectorAll('.operation-buttons');
+const calculatorNumber = document.querySelectorAll(".calculator-number")
+
+console.log(calculatorNumber)
+console.log(calculatorOperation)
+
+calculatorNumber.forEach(button => button.addEventListener('click', (handleButton) => {
+    let button = button.target;
+}));
+
 const operate = (a, b, operator) => {
     switch (operator) {
         case '+':
@@ -15,20 +25,22 @@ const operate = (a, b, operator) => {
         default:
             "Invalid operation"
     };
+        
+    const add = (a, b) => {
+        return a + b
+    };
+
+    const subtract = (a, b) => {
+        return a - b
+    };
+
+    const multiply = (a, b) => {
+        return a * b
+    };
+
+    const divide = (a, b) => {
+        return a / b
+    };
+    
 };
 
-const add = (a, b) => {
-    return a + b
-};
-
-const subtract = (a, b) => {
-    return a - b
-};
-
-const multiply = (a, b) => {
-    return a * b
-};
-
-const divide = (a, b) => {
-    return a / b
-};
