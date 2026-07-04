@@ -1,11 +1,41 @@
 const calculatorOperation = document.querySelectorAll('.operation-buttons');
 const calculatorNumber = document.querySelectorAll(".calculator-number")
-let firstNum = "";
-let secondNum;
-let ans = 0;
-let op;
 
-const handleButton = (numButton) => {
+let firstNum = "";
+let secondNum = "";
+let ans = 0;
+let op = "";
+
+const operatorBtn = (opButton) => {
+    let button = opButton.target;
+    switch (button.id) {
+        case "+":
+            op = "+";
+            console.log(op)
+            break;
+        case "-":
+            op = "-";
+            console.log(op)
+            break;
+        case "*":
+            op = "*"
+            console.log(op)
+            break;
+        case "/":
+            op = "/"
+            console.log(op)
+            break;
+        case "=":
+            op = "="
+            console.log(op)
+            break;
+    };
+};
+
+calculatorOperation.forEach(button => button.addEventListener('click', operatorBtn));
+
+const firstNumHandler = (numButton) => {
+    firstNum.length > 0 && firstNum[0] === "0" ? firstNum = "" : null;
     let button = numButton.target;
     switch (button.id) {
         case "0":
@@ -51,9 +81,25 @@ const handleButton = (numButton) => {
     };
 };
 
-calculatorNumber.forEach(button => button.addEventListener('click', handleButton));
+calculatorNumber.forEach(button => button.addEventListener('click', firstNumHandler));
+
 
 const operate = (a, b, operator) => {
+    const add = (a, b) => {
+        return a + b
+    };
+
+    const subtract = (a, b) => {
+        return a - b
+    };
+
+    const multiply = (a, b) => {
+        return a * b
+    };
+
+    const divide = (a, b) => {
+        return a / b
+    };
     switch (operator) {
         case '+':
             console.log(add(a,b));
@@ -69,22 +115,6 @@ const operate = (a, b, operator) => {
             break;
         default:
             "Invalid operation"
-    };
-        
-    const add = (a, b) => {
-        return a + b
-    };
-
-    const subtract = (a, b) => {
-        return a - b
-    };
-
-    const multiply = (a, b) => {
-        return a * b
-    };
-
-    const divide = (a, b) => {
-        return a / b
     };
     
 };

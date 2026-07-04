@@ -21,6 +21,7 @@ button {
 
 .operation-buttons {
     background-color: bisque;
+    font-size: large;
 }
 
 .calculator-body {
