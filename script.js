@@ -51,7 +51,7 @@ calculatorOperation.forEach(button => button.addEventListener('click', operatorB
 const numberHandler = (isOpClicked) => {
         const firstNumHandler = (numButton) => {
         let button = numButton.target;
-        calValues.firstNum.length > 0 && calValues.firstNum[0] === "0" ? calValues.firstNum = "" : null;
+        // calValues.firstNum.length > 0 && calValues.firstNum[0] === "0" && calValues.firstNum.includes(".") ? calValues.firstNum = "" : null;
         switch (button.id) {
             case "0":
                 calValues.firstNum = calValues.firstNum + "0"
@@ -93,7 +93,13 @@ const numberHandler = (isOpClicked) => {
                 calValues.firstNum = calValues.firstNum + "9"
                 console.log(calValues.firstNum)
                 break;
-        };
+            case "decimal-point":
+                if (!calValues.firstNum.includes(".")) {
+                calValues.firstNum = calValues.firstNum + "."
+                console.log(calValues.firstNum)
+                break;
+                }
+        }; 
     };
 
     calculatorNumber.forEach(button => button.addEventListener('click', firstNumHandler));
