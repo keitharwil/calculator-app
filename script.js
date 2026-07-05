@@ -9,12 +9,24 @@ const calValues = {
 }
 const operatorBtn = (opButton) => {
     let button = opButton.target;
-    switch (button.id) {
-        case "+":
+    const operatePlus = () => {
+        if (!calValues.opIsClicked){ 
             calValues.op = "+";
             calValues.opIsClicked = true;
-            console.log(calValues.op)
-            console.log(calValues.opIsClicked)
+            console.log(calValues.op);
+            console.log(calValues.opIsClicked);
+             
+            } else {
+                operate(calValues.firstNum, calValues.secondNum, "+");
+                calValues.firstNum = calValues.ans.toString()
+                calValues.secondNum = "0"
+                console.log(calValues.ans)
+                console.log(calValues.firstNum)
+            };
+    }
+    switch (button.id) {
+        case "+":
+            operatePlus();
             break;
         case "-":
             calValues.op = "-";
@@ -111,33 +123,36 @@ const numHandler = (numButton) => {
 calculatorNumber.forEach(button => button.addEventListener('click', numHandler));  
 
 const operate = (a, b, operator) => {
+    const firstNum = parseInt(a);
+    const secondNum = parseInt(b)
+
     const add = (a, b) => {
-        return a + b
+        calValues.ans = a + b
     };
 
     const subtract = (a, b) => {
-        return a - b
+        calValues.ans = a - b
     };
 
     const multiply = (a, b) => {
-        return a * b
+        calValues.ans = a * b
     };
 
     const divide = (a, b) => {
-        return a / b
+        calValues.ans = a / b
     };
     switch (operator) {
         case '+':
-            console.log(add(a,b));
+            add(firstNum,secondNum);
             break;
         case '-':
-            console.log(subtract(a,b));
+            add(firstNum,secondNum);
             break;
         case '*':
-            console.log(multiply(a,b));
+            add(firstNum,secondNum);
             break;
         case '/':
-            console.log(divide(a,b));
+            add(firstNum,secondNum);
             break;
         default:
             "Invalid operation"
