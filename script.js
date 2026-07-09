@@ -4,56 +4,48 @@ const calValues = {
     firstNum    :   "0", 
     secondNum   :   "0",
     op          :   "",
+    equalIsClicked:  false,
     opIsClicked :   false,
     ans         :   0
 }
 const operatorBtn = (opButton) => {
     let button = opButton.target;
-    const operatePlus = () => {
-        if (!calValues.opIsClicked){ 
-            calValues.op = "+";
+    const operateButton = (buttonID) => {
+        if (!calValues.opIsClicked){    
+            calValues.op = buttonID;
             calValues.opIsClicked = true;
             console.log(calValues.op);
             console.log(calValues.opIsClicked);
-             
-            } else {
-                operate(calValues.firstNum, calValues.secondNum, "+");
-                calValues.firstNum = calValues.ans.toString()
-                calValues.secondNum = "0"
-                console.log(calValues.ans)
-                console.log(calValues.firstNum)
-            };
+        } else if (buttonID === "=") {
+            operate(calValues.firstNum, calValues.secondNum, calValues.op);
+            calValues.firstNum = calValues.ans.toString();
+            console.log(`${calValues.firstNum} ${calValues.op} ${calValues.secondNum}`)
+            console.log(calValues.ans);
+        } else {
+            operate(calValues.firstNum, calValues.secondNum, calValues.op);
+            calValues.firstNum = calValues.ans.toString();
+            calValues.secondNum = "0";
+            calValues.op = buttonID;
+            console.log(calValues.ans);
+        };
     }
     switch (button.id) {
         case "+":
-            operatePlus();
+            operateButton(button.id);
             break;
         case "-":
-            calValues.op = "-";
-            calValues.opIsClicked = true;
-            console.log(calValues.op)
-            console.log(calValues.opIsClicked)
+            operateButton(button.id);
             break;
         case "*":
-            calValues.op = "*"
-            calValues.opIsClicked = true;
-            console.log(calValues.op)
-            console.log(calValues.opIsClicked)
+            operateButton(button.id);
             break;
         case "/":
-            calValues.op = "/"
-            calValues.opIsClicked = true;
-            console.log(calValues.op)
-            console.log(calValues.opIsClicked)
+            operateButton(button.id);
             break;
         case "=":
-            calValues.op = "="
-            calValues.opIsClicked = true;
-            console.log(calValues.op)
-            console.log(calValues.opIsClicked)
+            operateButton(button.id);
             break;
     };
-
 };
 calculatorOperation.forEach(button => button.addEventListener('click', operatorBtn));
 
@@ -61,6 +53,12 @@ const numHandler = (numButton) => {
     let numToChange = "firstNum"
     let button = numButton.target;
     calValues.opIsClicked ? numToChange = "secondNum" : null
+    const numberButton = (buttonID) => {
+        calValues[numToChange] === "0" ? calValues[numToChange] = `${buttonID}` :
+                calValues[numToChange] === "-0" ? calValues[numToChange] = `${buttonID}`:
+                    calValues[numToChange] = calValues[numToChange] + `${buttonID}`
+                    console.log(calValues[numToChange])
+    };
     switch (button.id) {
         case "0":
             calValues[numToChange] === "0" ? calValues[numToChange] = "0" :
@@ -68,91 +66,77 @@ const numHandler = (numButton) => {
                 console.log(calValues[numToChange])
                 break;  
         case "1":
-            calValues[numToChange] === "0" ? calValues[numToChange] = "1" :
-                calValues[numToChange] = calValues[numToChange] + "1"
-                console.log(calValues[numToChange])
-                break;
+            numberButton(button.id);
+            break;
         case "2":
-            calValues[numToChange] === "0" ? calValues[numToChange] = "2" :
-                calValues[numToChange] = calValues[numToChange] + "2"
-                console.log(calValues[numToChange])
-                break;
+            numberButton(button.id);
+            break;
         case "3":
-            calValues[numToChange] === "0" ? calValues[numToChange] = "3" :
-                calValues[numToChange] = calValues[numToChange] + "3"
-                console.log(calValues[numToChange])           
-                break;
+            numberButton(button.id);
+            break;
         case "4":
-            calValues[numToChange] === "0" ? calValues[numToChange] = "4" :
-                calValues[numToChange] = calValues[numToChange] + "4"
-                console.log(calValues[numToChange])
-                break;
+            numberButton(button.id);
+            break;
         case "5":
-            calValues[numToChange] === "0" ? calValues[numToChange] = "5" :
-                calValues[numToChange] = calValues[numToChange] + "5"
-                console.log(calValues[numToChange])
-                break;
+            numberButton(button.id);
+            break;
         case "6":
-            calValues[numToChange] === "0" ? calValues[numToChange] = "6" :
-                calValues[numToChange] = calValues[numToChange] + "6"
-                console.log(calValues[numToChange])
-                break;
+            numberButton(button.id);
+            break;
         case "7":
-            calValues[numToChange] === "0" ? calValues[numToChange] = "7" :
-                calValues[numToChange] = calValues[numToChange] + "7"
-                console.log(calValues[numToChange])
-                break;
+            numberButton(button.id);
+            break;
         case "8":
-            calValues[numToChange] === "0" ? calValues[numToChange] = "8" :
-                calValues[numToChange] = calValues[numToChange] + "8"
-                console.log(calValues[numToChange]);
-                break;
+            numberButton(button.id);
+            break;
         case "9":
-            calValues[numToChange] === "0" ? calValues[numToChange] = "9" :
-                calValues[numToChange] = calValues[numToChange] + "9"
-                console.log(calValues[numToChange])
-                break;
+            numberButton(button.id);
+            break;
         case "decimal-point":
             calValues[numToChange].includes(".") ? null :
                 calValues[numToChange] = calValues[numToChange] + "."
                 console.log(calValues[numToChange])
                 break;
+        case "sign":
+            !calValues[numToChange].includes("-") ? calValues[numToChange] = `-${calValues[numToChange]}`: 
+            calValues[numToChange].includes("-") ? calValues[numToChange] = calValues[numToChange].replace("-", ""): 
+            console.log("ERROR")
+            console.log(calValues[numToChange]);
     }; 
 };
 
 calculatorNumber.forEach(button => button.addEventListener('click', numHandler));  
 
 const operate = (a, b, operator) => {
-    const firstNum = parseInt(a);
-    const secondNum = parseInt(b)
-
+    const firstNum = !a.includes(".")  ?  parseInt(a)  :  parseFloat(a);
+    const secondNum = !b.includes(".") ? parseInt(b) : parseFloat(b);
     const add = (a, b) => {
         calValues.ans = a + b
     };
-
     const subtract = (a, b) => {
         calValues.ans = a - b
     };
-
     const multiply = (a, b) => {
         calValues.ans = a * b
     };
-
     const divide = (a, b) => {
         calValues.ans = a / b
     };
+    const equals = (a, b) => {
+       
+    }
     switch (operator) {
         case '+':
             add(firstNum,secondNum);
             break;
         case '-':
-            add(firstNum,secondNum);
+            subtract(firstNum,secondNum);
             break;
         case '*':
-            add(firstNum,secondNum);
+            multiply(firstNum,secondNum);
             break;
         case '/':
-            add(firstNum,secondNum);
+            divide(firstNum,secondNum);
             break;
         default:
             "Invalid operation"
