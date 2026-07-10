@@ -8,6 +8,9 @@ const calValues = {
     opIsClicked :   false,
     ans         :   0
 }
+const expo = (x, f) => {
+  return Number.parseFloat(x).toExponential(f);
+};
 const operatorBtn = (opButton) => {
     let button = opButton.target;
     const operateButton = (buttonID) => {
@@ -19,14 +22,13 @@ const operatorBtn = (opButton) => {
         } else if (buttonID === "=") {
             operate(calValues.firstNum, calValues.secondNum, calValues.op);
             calValues.firstNum = calValues.ans.toString();
-            console.log(`${calValues.firstNum} ${calValues.op} ${calValues.secondNum}`)
-            console.log(calValues.ans);
+            console.log(calValues.ans.toString().length > 10 ? expo(calValues.ans, 5): calValues.ans);
         } else {
             operate(calValues.firstNum, calValues.secondNum, calValues.op);
             calValues.firstNum = calValues.ans.toString();
             calValues.secondNum = "0";
-            calValues.op = buttonID;
-            console.log(calValues.ans);
+            calValues.op = buttonID; 
+            console.log(calValues.ans.toString().length > 10 ? expo(calValues.ans, 5): calValues.ans);
         };
     }
     switch (button.id) {
@@ -48,14 +50,13 @@ const operatorBtn = (opButton) => {
     };
 };
 calculatorOperation.forEach(button => button.addEventListener('click', operatorBtn));
-
 const numHandler = (numButton) => {
     let numToChange = "firstNum"
     let button = numButton.target;
     calValues.opIsClicked ? numToChange = "secondNum" : null
     const numberButton = (buttonID) => {
         calValues[numToChange] === "0" ? calValues[numToChange] = `${buttonID}` :
-                calValues[numToChange] === "-0" ? calValues[numToChange] = `${buttonID}`:
+                calValues[numToChange] === "-0" ? calValues[numToChange] = `-${buttonID}`:
                     calValues[numToChange] = calValues[numToChange] + `${buttonID}`
                     console.log(calValues[numToChange])
     };
@@ -104,9 +105,7 @@ const numHandler = (numButton) => {
             console.log(calValues[numToChange]);
     }; 
 };
-
 calculatorNumber.forEach(button => button.addEventListener('click', numHandler));  
-
 const operate = (a, b, operator) => {
     const firstNum = !a.includes(".")  ?  parseInt(a)  :  parseFloat(a);
     const secondNum = !b.includes(".") ? parseInt(b) : parseFloat(b);
@@ -122,9 +121,6 @@ const operate = (a, b, operator) => {
     const divide = (a, b) => {
         calValues.ans = a / b
     };
-    const equals = (a, b) => {
-       
-    }
     switch (operator) {
         case '+':
             add(firstNum,secondNum);
@@ -141,5 +137,4 @@ const operate = (a, b, operator) => {
         default:
             "Invalid operation"
     };
-    
 };
